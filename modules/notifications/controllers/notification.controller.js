@@ -1,80 +1,79 @@
-const service = require("../services/notification.service");
-const getAll = async (req, res, next) => {
-  try {
-    const notifications = await service.getAll();
-    res.json(notifications);
-  } catch (err) {
-    console.log("Internal Error: ", error);
-    res.sendStatus(500);
+NotificationService = require("../services/notification.service");
+class NotificationController {
+  constructor() {
+    this.service = new NotificationService();
   }
-};
-const getOne = async (req, res, next) => {
-  if (!req.params.id) {
-    res.sendStatus(400);
-    return;
+  async getAll(req, res, next) {
+    try {
+      const notifications = await this.service.getAll();
+      res.json(notifications);
+    } catch (error) {
+      console.log("Internal Error: ", error);
+      res.sendStatus(500);
+    }
   }
-  try {
-    const notification = await service.getOne(req.params.id);
-    if (!notification) {
-      res.sendStatus(404);
+
+  async getOne(req, res, next) {
+    if (!req.params.id) {
+      res.sendStatus(400);
       return;
     }
-    res.json(notification);
-  } catch (err) {
-    console.log("Internal Error: ", error);
-    res.sendStatus(500);
+    try {
+      const notification = await this.service.getOne(req.params.id);
+      if (!notification) {
+        res.sendStatus(404);
+        return;
+      }
+      res.json(notification);
+    } catch (error) {
+      console.log("Internal Error: ", error);
+      res.sendStatus(500);
+    }
   }
-};
 
-const getUnread = async (req, res, next) => {
-  try {
-    const notifications = await service.getUnread();
-    res.json(notifications);
-  } catch (err) {
-    console.log("Internal Error: ", error);
-    res.sendStatus(500);
+  async getUnread(req, res, next) {
+    try {
+      const notifications = await this.service.getUnread();
+      res.json(notifications);
+    } catch (error) {
+      console.log("Internal Error: ", error);
+      res.sendStatus(500);
+    }
   }
-};
 
-const countUnread = async (req, res, next) => {
-  try {
-    const { count } = await service.countUnread();
-    res.json({ count });
-  } catch (err) {
-    console.log("Internal Error: ", error);
-    res.sendStatus(500);
+  async countUnread(req, res, next) {
+    try {
+      const { count } = await this.service.countUnread();
+      res.json({ count });
+    } catch (error) {
+      console.log("Internal Error: ", error);
+      res.sendStatus(500);
+    }
   }
-};
 
-const readAll = async (req, res, next) => {
-  try {
-    const { count } = await service.readAll();
-    res.json({ count });
-  } catch (err) {
-    console.log("Internal Error: ", error);
-    res.sendStatus(500);
+  async readAll(req, res, next) {
+    try {
+      const { count } = await this.service.readAll();
+      res.json({ count });
+    } catch (error) {
+      console.log("Internal Error: ", error);
+      res.sendStatus(500);
+    }
   }
-};
 
-const readOne = async (req, res, next) => {
-  if (!req.params.id) {
-    res.sendStatus(400);
-    return;
+  async readOne(req, res, next) {
+    if (!req.params.id) {
+      res.sendStatus(400);
+      return;
+    }
+    try {
+      const { success } = await this.service.read(req.params.id);
+      res.json({ success });
+    } catch (error) {
+      console.log("Internal Error: ", error);
+      res.sendStatus(500);
+    }
   }
-  try {
-    const { success } = await service.read(req.params.id);
-    res.json({ success });
-  } catch (err) {
-    console.log("Internal Error: ", error);
-    res.sendStatus(500);
-  }
-};
+}
 
-module.exports = {
-  getAll,
-  getOne,
-  getUnread,
-  countUnread,
-  readAll,
-  readOne,
-};
+module.exports = NotificationController;

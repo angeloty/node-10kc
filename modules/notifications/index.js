@@ -1,14 +1,9 @@
-const initRoutes = require("./router");
-const {
-  NotificationModel,
-  NotificationSchema,
-} = require("./models/notification.schema");
-const initDB = () => {
-  return { NotificationModel, NotificationSchema };
-};
-const init = (app) => {
-  initRoutes(app);
-  initDB(app);
-};
+const Router = require("./router");
+class NotificationModule {
+  static init(app) {
+    const router = new Router(app);
+    router.init(app);
+  }
+}
 
-module.exports = init;
+module.exports = NotificationModule;

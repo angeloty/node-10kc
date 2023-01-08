@@ -5,11 +5,11 @@ const express = require("express");
 const mongoose = require("mongoose");
 const swaggerUi = require("swagger-ui-express");
 const swaggerDocument = require("./swagger.json");
-const notification = require("./modules/notifications/index");
+const NotificationModule = require("./modules/notifications/index");
 
 const app = express();
 
-notification(app);
+NotificationModule.init(app);
 
 app.use("/", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 

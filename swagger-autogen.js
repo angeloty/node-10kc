@@ -1,8 +1,8 @@
-'use strict'
+"use strict";
 
-const swaggerAutogen = require('swagger-autogen')();
+const swaggerAutogen = require("swagger-autogen")();
 
-const outputFile = './swagger.json';
-const endpointsFiles = ['./server.js'];
+const outputFile = "./swagger.json";
+const endpointsFiles = ["./server.js", "./modules/notifications/router.js"];
 
 swaggerAutogen(outputFile, endpointsFiles);

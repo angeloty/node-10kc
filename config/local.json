@@ -1,3 +1,3 @@
 {
-  "MONGO_HOST": "mongodb://angel:M0ngoDBP%40ss@127.0.0.1:27017"
+  "MONGO_HOST": "mongodb+srv://10kc-test:10kc-test@cluster0.cqdmecy.mongodb.net/?retryWrites=true&w=majority"
 }
